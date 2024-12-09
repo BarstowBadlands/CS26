@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="299.0" style="-fx-background-color: White;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cs262.Payment2Controller">
+   <children>
+      <Button fx:id="ConfirmOrderBTN" layoutX="26.0" layoutY="502.0" mnemonicParsing="false" onAction="#handleConfirmOrderbutton" prefHeight="49.0" prefWidth="248.0" style="-fx-background-color: GREEN; -fx-text-fill: WHITE;" styleClass="rectangular-button3" stylesheets="@application.css" text="Confirm Order">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <AnchorPane prefHeight="128.0" prefWidth="299.0" style="-fx-background-color: GREEN;">
+         <children>
+            <ImageView fx:id="animatedImage" fitHeight="96.0" fitWidth="87.0" layoutX="14.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="BackButton" layoutX="18.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="35.0" prefWidth="39.0" style="-fx-background-color: Transparent;">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="ARROW_LEFT" size="2em" stroke="#00990a" strokeWidth="2.0" />
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+      <Button fx:id="backBTN" layoutX="47.0" layoutY="552.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: Transparent;" text=" Back to Transaction Page">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="17.0" layoutY="409.0" prefHeight="17.0" prefWidth="109.0" text="Delivery Method: " textFill="#000000cd" />
+      <Label fx:id="DeliveryText" layoutX="118.0" layoutY="409.0" prefHeight="18.0" prefWidth="174.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="17.0" layoutY="431.0" prefHeight="17.0" prefWidth="109.0" text="Payment  Method: " textFill="#000000d0" />
+      <Label fx:id="PaymentText" layoutX="118.0" layoutY="431.0" prefHeight="17.0" prefWidth="173.0" />
+      <Label fx:id="TotalText" layoutX="83.0" layoutY="461.0" prefHeight="27.0" prefWidth="173.0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Rectangle arcHeight="70.0" arcWidth="50.0" fill="WHITE" height="69.0" layoutY="94.0" stroke="WHITE" strokeType="INSIDE" width="299.0" />
+      <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="138.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0" prefWidth="270.0" style="-fx-background-color: White;" vbarPolicy="NEVER">
+         <content>
+            <VBox fx:id="DisplayItems" prefHeight="266.0" prefWidth="270.0" spacing="10.0" style="-fx-background-color: White;">
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <Label layoutX="17.0" layoutY="461.0" prefHeight="27.0" prefWidth="109.0" text="TOTAL: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="127.0" layoutY="97.0" text="Items" textFill="#076600">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

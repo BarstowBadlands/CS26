@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="299.0" style="-fx-background-color: #1c9424;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cs262.ReceiptController">
+   <center>
+      <AnchorPane prefHeight="550.0" prefWidth="299.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="receiptBox" layoutX="22.0" layoutY="76.0" prefHeight="429.0" prefWidth="256.0" style="-fx-background-color: Transparent;">
+               <children>
+                  <AnchorPane prefHeight="366.0" prefWidth="254.0">
+                     <children>
+                        <VBox fx:id="Paymentload" layoutX="1.0" layoutY="77.0" prefHeight="234.0" prefWidth="254.0" style="-fx-background-color: WHite;">
+                           <children>
+                              <AnchorPane prefHeight="30.0" prefWidth="254.0">
+                                 <children>
+                                    <Label layoutX="15.0" layoutY="9.0" text="Item">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="127.0" layoutY="9.0" text="Qnty">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="200.0" layoutY="9.0" text="Price">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                        <ImageView fitHeight="123.0" fitWidth="256.0" layoutY="-28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Fruits/Receipt3.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="124.0" fitWidth="254.0" layoutX="1.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Fruits/Receipt34.PNG" />
+                           </image>
+                        </ImageView>
+                        <AnchorPane layoutX="1.0" layoutY="290.0" prefHeight="122.0" prefWidth="254.0" style="-fx-background-color: White;">
+                           <children>
+                              <Label layoutX="14.0" layoutY="45.0" text="Ref Number">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="14.0" layoutY="61.0" prefHeight="18.0" prefWidth="106.0" text="Payment Method">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="14.0" layoutY="78.0" prefHeight="18.0" prefWidth="106.0" text="Delivery Method">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="Reference" layoutX="165.0" layoutY="46.0" prefHeight="15.0" prefWidth="85.0" text="000085752257">
+                                 <font>
+                                    <Font name="Arial" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="PaymentMethod" layoutX="164.0" layoutY="62.0" prefHeight="15.0" prefWidth="85.0" text="000085752257">
+                                 <font>
+                                    <Font name="Arial" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="Delivery" layoutX="165.0" layoutY="79.0" prefHeight="15.0" prefWidth="85.0" text="000085752257">
+                                 <font>
+                                    <Font name="Arial" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="14.0" layoutY="96.0" prefHeight="18.0" prefWidth="106.0" text="Payment Time">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="PaymentTime" layoutX="164.0" layoutY="98.0" prefHeight="15.0" prefWidth="85.0" text="000085752257">
+                                 <font>
+                                    <Font name="Arial" size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="TotalPrice" layoutX="99.0" layoutY="19.0" text="10000">
+                                 <font>
+                                    <Font name="Arial Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="93.0" prefHeight="18.0" prefWidth="66.0" text="Total Amount">
+                                 <font>
+                                    <Font name="Arial" size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+            <Button fx:id="DownloadBtn" layoutX="41.0" layoutY="528.0" mnemonicParsing="false" onAction="#downloadReceipt" prefHeight="34.0" prefWidth="220.0" style="-fx-background-color: White;" styleClass="rectangular-button3" stylesheets="@application.css" text="Download Receipt" textFill="#01990b" />
+            <Button fx:id="BackButton" layoutX="17.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="35.0" prefWidth="39.0" style="-fx-background-color: Transparent;">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="ARROW_LEFT" size="2em" stroke="#00990a" strokeWidth="2.0" />
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

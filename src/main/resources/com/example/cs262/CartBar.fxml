@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="cartBar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="296.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cs262.Product">
+   <children>
+      <ImageView fx:id="productImage1" fitHeight="49.0" fitWidth="54.0" layoutX="14.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="productName1" layoutX="68.0" layoutY="12.0" prefHeight="22.0" prefWidth="154.0" text="Banana">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="productRating1" layoutX="69.0" layoutY="33.0" prefHeight="14.0" prefWidth="154.0" text="4.8 (2000)">
+         <font>
+            <Font name="Arial" size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="productPrice1" layoutX="238.0" layoutY="59.0" prefHeight="18.0" prefWidth="44.0" text="129.00" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="27.0" layoutX="68.0" layoutY="51.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-height: 70; -fx-arc-width: 30;" width="82.0" />
+      <Button fx:id="decreaseQuantity" layoutX="69.0" layoutY="50.0" mnemonicParsing="false" onAction="#decreaseQuantity" prefHeight="26.0" prefWidth="27.0" styleClass="circular-button" stylesheets="@application.css">
+         <graphic>
+            <FontAwesomeIcon glyphName="MINUS" size="1.5em" stroke="WHITE" strokeWidth="2.0" />
+         </graphic>
+      </Button>
+      <TextField fx:id="quantityField" alignment="CENTER" layoutX="96.0" layoutY="51.0" prefHeight="26.0" prefWidth="27.0" promptText="1" style="-fx-background-color: Transparent;" />
+      <Button fx:id="increaseQuantity" layoutX="121.0" layoutY="49.0" mnemonicParsing="false" onAction="#increaseQuantity" prefHeight="26.0" prefWidth="27.0" styleClass="circular-button" stylesheets="@application.css">
+         <graphic>
+            <FontAwesomeIcon glyphName="PLUS" size="1.5em" stroke="WHITE" strokeWidth="2.0" />
+         </graphic>
+      </Button>
+      <Button fx:id="deleteButton" layoutX="245.0" layoutY="7.0" mnemonicParsing="false" styleClass="circular-button" stylesheets="@application.css">
+         <graphic>
+            <FontAwesomeIcon glyphName="TRASH" size="1.5em" stroke="#ffffff0a" strokeWidth="1.5" />
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

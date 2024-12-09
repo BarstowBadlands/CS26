@@ -1,0 +1,79 @@
+.scroll-pane > .viewport {
+    -fx-background-color: white; /* Background color for the content area */
+    -fx-padding: -5;
+}
+
+.scroll-pane .scroll-bar:horizontal,
+.scroll-pane .scroll-bar:vertical {
+    -fx-opacity: 0; /* Make scrollbar invisible */
+    -fx-background-color: transparent; /* Ensure no background is left for the scrollbar */
+    -fx-padding: -5; /* Remove any padding around the scrollbar */
+}
+
+.scroll-pane .scroll-bar:horizontal .thumb,
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-opacity: 0; /* Hide the scrollbar thumb */
+    -fx-background-color: transparent; /* Ensure no color shows for the thumb */
+    -fx-padding: -5;
+}
+
+.scroll-pane .scroll-bar .increment-button,
+.scroll-pane .scroll-bar .decrement-button {
+    -fx-opacity: 0; /* Hide the increment/decrement buttons */
+    -fx-background-color: transparent; /* Ensure no color is left */
+    -fx-padding: -5;
+}
+
+/* Additional option: Remove extra padding on the viewport */
+.scroll-pane > .viewport {
+    -fx-padding: -5;
+}
+
+.hbox {
+    -fx-padding: -5; /* Remove padding if you’re using an HBox inside the ScrollPane */
+    -fx-spacing: -5; /* Remove spacing between elements if that’s causing extra space */
+}
+.circular-button {
+    -fx-background-color: transparent; /* Button background color */
+    -fx-text-fill: white; /* Text color */
+    -fx-background-radius: 50%; /* Makes it circular */
+    -fx-padding: 0; /* Removes extra padding */
+    -fx-pref-width: 30px; /* Button width */
+    -fx-pref-height: 30px; /* Button height */
+    -fx-border-color: Transparent; /* Optional: Add border */
+    -fx-border-radius: 50%; /* Border radius to match circle */
+    -fx-border-width: 2px; /* Border width */
+    -fx-alignment: center; /* Centers text inside */
+}
+.circular-button2 {
+    -fx-background-color: transparent; /* Button background color */
+    -fx-text-fill: white; /* Text color */
+    -fx-background-radius: 50%; /* Makes it circular */
+    -fx-padding: 0; /* Removes extra padding */
+    -fx-pref-width: 60px; /* Button width */
+    -fx-pref-height: 60px; /* Button height */
+    -fx-border-color: Transparent; /* Optional: Add border */
+    -fx-border-radius: 50%; /* Border radius to match circle */
+    -fx-border-width: 2px; /* Border width */
+    -fx-alignment: center; /* Centers text inside */
+}
+
+.circular-button3    {
+    -fx-background-color: transparent; /* Button background color */
+    -fx-text-fill: white; /* Text color */
+    -fx-background-radius: 50%; /* Makes it circular */
+    -fx-padding: 0; /* Removes extra padding */
+    -fx-pref-width: 25px; /* Button width */
+    -fx-pref-height: 20px; /* Button height */
+    -fx-border-color: Transparent; /* Optional: Add border */
+    -fx-border-radius: 50%; /* Border radius to match circle */
+    -fx-border-width: 2px; /* Border width */
+    -fx-alignment: center; /* Centers text inside */
+}
+
+.rectangular-button3    {
+
+    -fx-background-radius: 5%; /* Makes it circular */
+    -fx-border-radius: 50%; /* Border radius to match circle */
+    -fx-border-width: 2px; /* Border width */
+}

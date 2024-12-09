@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="299.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cs262.PaymentController">
+   <children>
+      <AnchorPane layoutX="-5.0" layoutY="-3.0" minWidth="-Infinity" prefHeight="82.0" prefWidth="307.0" style="-fx-background-color: GREEN;">
+         <children>
+            <Label layoutX="77.0" layoutY="8.0" prefHeight="63.0" prefWidth="175.0" text="Checkout" textFill="WHITE" textOverrun="CLIP">
+               <font>
+                  <Font name="Gill Sans" size="37.0" />
+               </font>
+            </Label>
+            <Button fx:id="BackButton" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="35.0" prefWidth="39.0" style="-fx-background-color: Transparent;">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="ARROW_LEFT" size="2em" stroke="#00990a" strokeWidth="2.0" />
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="PMethodBTN" layoutX="-4.0" layoutY="79.0" prefHeight="538.0" prefWidth="307.0" style="-fx-background-color: White;">
+         <children>
+            <AnchorPane fx:id="PMethodBTN111" layoutX="31.0" layoutY="263.0" prefHeight="43.0" prefWidth="267.0" style="-fx-border-color: rgba(0, 0, 0, 0.3)  transparent rgba(0, 0, 0, 0.3) transparent; -fx-border-style: solid; -fx-border-width: 1 0 1 0;">
+               <children>
+                  <ComboBox fx:id="selectedDeliveryMethod" layoutX="123.0" layoutY="9.0" prefHeight="26.0" prefWidth="140.0" promptText="Payment Method" style="-fx-background-color: White;" />
+                  <Label layoutX="10.0" layoutY="7.0" prefHeight="18.0" prefWidth="95.0" style="-fx-opacity: 0.8;" text="Payment">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="PMethodBTN1111" layoutX="32.0" layoutY="306.0" prefHeight="38.0" prefWidth="267.0" style="-fx-border-color: transparent transparent rgba(0, 0, 0, 0.3) transparent; -fx-border-style: solid; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <ComboBox fx:id="methodPayment" layoutX="121.0" layoutY="6.0" prefHeight="26.0" prefWidth="140.0" promptText="Delivery Method" style="-fx-background-color: White;" />
+                  <Label layoutX="9.0" layoutY="7.0" prefHeight="18.0" prefWidth="95.0" style="-fx-opacity: 0.8;" text="Delivery">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="PMethodBTN11111" layoutX="32.0" layoutY="342.0" prefHeight="38.0" prefWidth="267.0" style="-fx-border-color: transparent transparent rgba(0, 0, 0, 0.3) transparent; -fx-border-style: solid; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label layoutX="9.0" layoutY="8.0" prefHeight="18.0" prefWidth="95.0" style="-fx-opacity: 0.8;" text="Promo Code">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="PMethodBTN111111" layoutX="34.0" layoutY="382.0" prefHeight="46.0" prefWidth="244.0" style="-fx-border-color: transparent transparent rgba(0, 0, 0, 0.3) transparent; -fx-border-style: solid; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label layoutX="10.0" layoutY="12.0" prefHeight="18.0" prefWidth="95.0" style="-fx-opacity: 0.8;" text="Total Cost">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="totalCost" layoutX="149.0" layoutY="4.0" prefHeight="38.0" prefWidth="114.0" text="total cost">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <Circle fill="DODGERBLUE" layoutX="154.0" layoutY="127.0" radius="84.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: GREEN; -fx-stroke: TRANSPARENT;" />
+            <Circle fill="DODGERBLUE" layoutX="154.0" layoutY="128.0" radius="74.0" stroke="BLACK" strokeMiterLimit="30.0" strokeType="INSIDE" style="-fx-fill: Transparent; -fx-stroke: WHITE;" />
+            <Line endX="19.744537353515625" endY="24.82867431640625" layoutX="124.0" layoutY="140.0" startX="-6.7557525634765625" startY="3.9496612548828125" strokeMiterLimit="300.0" strokeWidth="5.0" style="-fx-stroke: white; -fx-stroke-line-cap: ROUND;" />
+            <Line endX="14.45166015625" endY="16.535797119140625" layoutX="130.0" layoutY="149.0" startX="58.2904052734375" startY="-50.41444396972656" strokeLineCap="ROUND" strokeMiterLimit="300.0" strokeWidth="5.0" style="-fx-stroke: white; -fx-stroke-line-cap: ROUND;" />
+            <Button fx:id="PlaceOrder" layoutX="39.0" layoutY="470.0" mnemonicParsing="false" onAction="#handlePlaceOrder" prefHeight="38.0" prefWidth="244.0" style="-fx-background-color: GREEN; -fx-text-fill: WHITE;" text="Place Order" />
+            <CheckBox fx:id="termsCheckBox" layoutX="23.0" layoutY="436.0" mnemonicParsing="false" text="By placing the order you accept the terms and agrrements">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </CheckBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
