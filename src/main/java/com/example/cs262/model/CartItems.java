@@ -61,8 +61,8 @@ public class CartItems {
         return stock;
     }
 
-    public void setStock(double price) {
-        this.price = price;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public String getRating() {

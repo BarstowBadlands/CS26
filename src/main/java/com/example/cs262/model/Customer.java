@@ -477,7 +477,31 @@ Customer extends User {
             e.printStackTrace();
         }
 
-        decrementProductStock(3);
+        for(CartItems item : cartItems) {
+            decrementStockByName(item.getName(), item.getQuantity());
+        }
+
+    }
+
+    public boolean decrementStockByName(String productName, int quantity) {
+        String sql = "UPDATE products SET stock = stock - "+quantity+" WHERE name = ? AND stock > 0";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Set the product name in the PreparedStatement
+            stmt.setString(1, productName);
+
+            // Execute the update statement
+            int rowsAffected = stmt.executeUpdate();
+
+            // Return true if the stock was successfully decremented
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error updating stock: " + e.getMessage());
+            return false; // Return false if an error occurs
+        }
     }
 
     public boolean decrementProductStock(int productId) {
