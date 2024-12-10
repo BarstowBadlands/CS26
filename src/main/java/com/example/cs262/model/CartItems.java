@@ -1,4 +1,4 @@
-package com.example.cs262;
+package com.example.cs262.model;
 
 public class CartItems {
 

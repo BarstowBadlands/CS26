@@ -1,4 +1,6 @@
-package com.example.cs262;
+package com.example.cs262.products;
+
+import com.example.cs262.model.Product;
 
 public class Beverages extends Product {
 

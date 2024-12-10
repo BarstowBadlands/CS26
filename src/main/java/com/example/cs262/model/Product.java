@@ -1,4 +1,4 @@
-package com.example.cs262;
+package com.example.cs262.model;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,12 +16,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import javax.swing.event.ChangeEvent;
 import java.io.IOException;
-import java.math.MathContext;
 
-import static com.example.cs262.Customer.cartItems;
-import static com.example.cs262.Customer.updateProductQuantityInCart;
+import static com.example.cs262.model.Customer.cartItems;
 
 
 public class Product {

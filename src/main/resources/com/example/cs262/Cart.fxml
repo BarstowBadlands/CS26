@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="productContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleproductContainerClick" prefHeight="165.0" prefWidth="114.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cs262.Product">
+<AnchorPane fx:id="productContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleproductContainerClick" prefHeight="165.0" prefWidth="114.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cs262.model.Product">
    <children>
       <Label fx:id="productName" layoutX="10.0" layoutY="94.0" prefHeight="18.0" prefWidth="65.0" text="Banana">
          <font>

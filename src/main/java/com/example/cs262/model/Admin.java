@@ -1,5 +1,7 @@
-package com.example.cs262;
+package com.example.cs262.model;
 
+import com.example.cs262.gui.Payment2Controller;
+import com.example.cs262.products.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,12 +11,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
@@ -27,8 +26,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.cs262.Customer.addProductToCart;
-import static com.example.cs262.Customer.cartItems;
+import static com.example.cs262.model.Customer.addProductToCart;
+import static com.example.cs262.model.Customer.cartItems;
 
 public class Admin extends User {
 

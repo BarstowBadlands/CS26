@@ -1,6 +1,7 @@
-package com.example.cs262;
+package com.example.cs262.model;
 
-import javafx.animation.FadeTransition;
+import com.example.cs262.gui.BSignUpPageController;
+import com.example.cs262.gui.PaymentController;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -14,11 +15,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import com.example.cs262.BSignUpPageController;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -363,7 +362,7 @@ Customer extends User {
         public void registerCustomer(String name, String email, String password,String address, String contact_number ) {
             String sql = "INSERT INTO customers (username, email, password,address,contact_number) VALUES (?, ?, ?, ?, ?)";
 
-            try (Connection conn =DatabaseConnection.getConnection();
+            try (Connection conn = DatabaseConnection.getConnection();
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
                 pstmt.setString(1, name);

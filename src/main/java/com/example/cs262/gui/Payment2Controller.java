@@ -1,5 +1,6 @@
-package com.example.cs262;
+package com.example.cs262.gui;
 
+import com.example.cs262.model.CartItems;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -17,7 +18,6 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Payment2Controller {
 
