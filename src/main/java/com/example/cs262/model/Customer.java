@@ -492,6 +492,7 @@ Customer extends User {
         Controller.getInstance().getBeveragesBox().getChildren().clear();
         Controller.getInstance().getDairyBox().getChildren().clear();
         Controller.getInstance().getLaundryBox().getChildren().clear();
+        cartItems.clear();
 
         // Reload products from the database
         Admin.displayAllProducts();
