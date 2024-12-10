@@ -205,7 +205,7 @@ public class Product {
             productRating.setText(rating);
         }
         if (this.stock != null) {
-            this.stock.setText("In Stock: "+Integer.toString(stock));
+            this.stock.setText(Integer.toString(stock));
         }
     }
 
@@ -230,7 +230,7 @@ public class Product {
         }
 
         if (this.stock != null) {
-            this.stock.setText("In Stock: " + Integer.toString(stock));
+            this.stock.setText("Stock: " + Integer.toString(stock));
         }
 
         if (quantityField != null) {
