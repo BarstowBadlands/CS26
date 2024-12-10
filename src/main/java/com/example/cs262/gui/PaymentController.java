@@ -1,6 +1,9 @@
 package com.example.cs262.gui;
 
+import com.example.cs262.model.Admin;
 import com.example.cs262.model.CartItems;
+import com.example.cs262.model.Controller;
+import com.example.cs262.model.DatabaseConnection;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -16,6 +19,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class PaymentController {
@@ -121,12 +127,56 @@ public class PaymentController {
             } catch (IOException e) {
                 e.printStackTrace(); // Handle loading errors
             }
+
+            for(CartItems item : cartItems) {
+                decrementStockByName(item.getName(), item.getQuantity());
+            }
+
+            refreshProductList();
+
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Terms and Conditions");
             alert.setHeaderText(null);
             alert.setContentText("You must agree to the terms and conditions before placing the order.");
             alert.showAndWait();
+        }
+
+
+
+    }
+
+    public void refreshProductList() {
+        // Clear existing UI components
+        Controller.getInstance().getHFruits().getChildren().clear();
+        Controller.getInstance().getVegeBox().getChildren().clear();
+        Controller.getInstance().getBeveragesBox().getChildren().clear();
+        Controller.getInstance().getDairyBox().getChildren().clear();
+        Controller.getInstance().getLaundryBox().getChildren().clear();
+        cartItems.clear();
+
+        // Reload products from the database
+        Admin.displayAllProducts();
+    }
+
+    public boolean decrementStockByName(String productName, int quantity) {
+        String sql = "UPDATE products SET stock = stock - "+quantity+" WHERE name = ? AND stock > 0";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Set the product name in the PreparedStatement
+            stmt.setString(1, productName);
+
+            // Execute the update statement
+            int rowsAffected = stmt.executeUpdate();
+
+            // Return true if the stock was successfully decremented
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error updating stock: " + e.getMessage());
+            return false; // Return false if an error occurs
         }
     }
 
