@@ -123,7 +123,6 @@ public class Controller {
     @FXML
     public void initialize() {
 
-//        Admin.addProduct("Vegetable","Brocolli",29.00,"4.0(2000)","/com/example/cs262/Fruits/Vegetable/Brocolli.png","Yes");
         Admin.displayAllProducts();
         // Setting click event for HFruits HBox
         HFruits.setOnMouseClicked(event -> handleClick());

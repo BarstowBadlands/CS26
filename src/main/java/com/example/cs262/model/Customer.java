@@ -481,6 +481,20 @@ Customer extends User {
             decrementStockByName(item.getName(), item.getQuantity());
         }
 
+        refreshProductList();
+
+    }
+
+    public void refreshProductList() {
+        // Clear existing UI components
+        Controller.getInstance().getHFruits().getChildren().clear();
+        Controller.getInstance().getVegeBox().getChildren().clear();
+        Controller.getInstance().getBeveragesBox().getChildren().clear();
+        Controller.getInstance().getDairyBox().getChildren().clear();
+        Controller.getInstance().getLaundryBox().getChildren().clear();
+
+        // Reload products from the database
+        Admin.displayAllProducts();
     }
 
     public boolean decrementStockByName(String productName, int quantity) {
