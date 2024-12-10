@@ -2,6 +2,7 @@ package com.example.cs262.model;
 
 import com.example.cs262.gui.BSignUpPageController;
 import com.example.cs262.gui.PaymentController;
+import com.example.cs262.products.*;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -472,7 +473,6 @@ Customer extends User {
             cartStage.close();
             stage.show();
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -527,6 +527,97 @@ Customer extends User {
             System.err.println("Error updating stock: " + e.getMessage());
             return false; // Return false if an error occurred
         }
+    }
+
+    // Method to display all products from the database in their respective sections
+    public static void displayAllProducts() {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "SELECT * FROM products";
+            assert conn != null;
+            try (PreparedStatement stmt = conn.prepareStatement(sql);
+                 ResultSet rs = stmt.executeQuery()) {
+
+                while (rs.next()) {
+                    String category = rs.getString("category");
+                    String name = rs.getString("name");
+                    double price = rs.getDouble("price");
+                    String rating = rs.getString("rating");
+                    String imageURL = rs.getString("imageURL");
+                    String extraField = rs.getString("extraField");
+                    int stock = rs.getInt("stock");
+
+                    FXMLLoader loader = new FXMLLoader(Admin.class.getResource("/com/example/cs262/Cart.fxml"));
+                    AnchorPane item = loader.load();
+
+                    Product controller = loader.getController();
+                    controller.setData(name, price, rating, imageURL, stock);
+
+                    Button addToCartButton = (Button) item.lookup("#addButton");
+                    addToCartButton.setOnAction(event -> {
+                        Product product = createProduct(category, name, price, rating, imageURL, extraField);
+                        if (!cartItems.contains(product)) {
+                            addProductToCart(product);
+                        }
+                    });
+
+                    // Add item to the appropriate section based on its category
+                    switch (category) {
+                        case "Fruit":
+                            Controller.getInstance().getHFruits().getChildren().add(item);
+                            break;
+                        case "Vegetable":
+                            Controller.getInstance().getVegeBox().getChildren().add(item);
+                            break;
+                        case "Beverages":
+                            Controller.getInstance().getBeveragesBox().getChildren().add(item);
+                            break;
+                        case "MilkAndEggs":
+                            Controller.getInstance().getDairyBox().getChildren().add(item);
+                            break;
+                        case "Laundry":
+                            Controller.getInstance().getLaundryBox().getChildren().add(item);
+                            break;
+                        default:
+                            System.err.println("Unknown category: " + category);
+                            break;
+                    }
+                }
+            }
+        } catch (SQLException | IOException e) {
+            System.err.println("Error fetching products from database: " + e.getMessage());
+        }
+    }
+
+    // Helper method to create a product object based on category
+    private static Product createProduct(String category, String name, double price, String rating, String imageURL, String extraField) {
+        switch (category) {
+            case "Fruit":
+                Fruit fruit = new Fruit(name, price, rating, imageURL, extraField);
+                fruit.setSeason(extraField);
+                return fruit;
+            case "Vegetable":
+                Vegetable vegetable = new Vegetable(name, price, rating, imageURL, extraField);
+                vegetable.setIsOrganic(extraField);
+                return vegetable;
+            case "Beverages":
+                Beverages beverages = new Beverages(name, price, rating, imageURL, extraField);
+                beverages.setSize(extraField);
+                return beverages;
+            case "MilkAndEggs":
+                MilkAndEggs milkAndEggs = new MilkAndEggs(name, price, rating, imageURL, extraField);
+                milkAndEggs.setExpirationDate(extraField);
+                return milkAndEggs;
+            case "Laundry":
+                Laundry laundry = new Laundry(name, price, rating, imageURL, extraField);
+                laundry.setBrand(extraField);
+                return laundry;
+            default:
+                System.err.println("Unknown category: " + category);
+                return null;
+        }
+
+
+
     }
 
 }

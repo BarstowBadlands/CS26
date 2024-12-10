@@ -133,8 +133,6 @@ public class Controller {
         Image image = new Image(getClass().getResourceAsStream("/com/example/cs262/Fruits/ScreenShot.png"));
         BanerImage.setImage(image);
 
-
-
     }
 
     /**

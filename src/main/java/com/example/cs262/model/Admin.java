@@ -95,6 +95,7 @@ public class Admin extends User {
     public static void displayAllProducts() {
         try (Connection conn = DatabaseConnection.getConnection()) {
             String sql = "SELECT * FROM products";
+            assert conn != null;
             try (PreparedStatement stmt = conn.prepareStatement(sql);
                  ResultSet rs = stmt.executeQuery()) {
 

@@ -205,7 +205,7 @@ public class Product {
             productRating.setText(rating);
         }
         if (this.stock != null) {
-            this.stock.setText("In Stock: "+Integer.toString(stock));
+            this.stock.setText("In Stock: "+ Integer.toString(stock));
         }
     }
 
