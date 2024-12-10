@@ -74,9 +74,6 @@ public class Product {
         }
     }
 
-
-
-
     @FXML
     private Button deleteButton;
 
@@ -142,6 +139,9 @@ public class Product {
 
     private String imageURL;
 
+    @FXML
+    public Label stock;
+
     // Product attributes
     private double price;
     private String rating;
@@ -187,7 +187,7 @@ public class Product {
     /**
      * Set product data in the UI components.
      */
-    public void setData(String name, double price, String rating, String imageURL) {
+    public void setData(String name, double price, String rating, String imageURL, int stock) {
         this.imageURL = imageURL;
 
         // Load the image safely
@@ -204,12 +204,15 @@ public class Product {
         if (productRating != null) {
             productRating.setText(rating);
         }
+        if (this.stock != null) {
+            this.stock.setText(Integer.toString(stock));
+        }
     }
 
     /**
      * Set product data for a cart item.
      */
-    public void setDataofCartItem(String name, double price, String rating, String imageURL) {
+    public void setDataofCartItem(String name, double price, String rating, String imageURL, int stock) {
         this.imageURL = imageURL;
 
         Image image = new Image(getClass().getResourceAsStream(imageURL));
@@ -224,6 +227,10 @@ public class Product {
         }
         if (productRating1 != null) {
             productRating1.setText(rating);
+        }
+
+        if (this.stock != null) {
+            this.stock.setText("Stock: " + Integer.toString(stock));
         }
 
         if (quantityField != null) {

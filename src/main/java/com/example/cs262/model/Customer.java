@@ -22,11 +22,12 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet; // Import ResultSet
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+
 public class
 Customer extends User {
     static LinkedList<CartItems> cartItems = new LinkedList<>();
@@ -81,6 +82,7 @@ Customer extends User {
     public String getTotalPrice() {
         return totalPriceofItemsInCart.getText();
     }
+
     public void setTotalPrice(String totalPrice) {
         this.totalPriceofItemsInCart.setText(totalPrice);
     }
@@ -162,7 +164,7 @@ Customer extends User {
             AnchorPane bar = loader.load();
 
             Product cartProductController = loader.getController();
-            cartProductController.setDataofCartItem(item.getName(), item.getPrice(), item.getRating(), item.getImage());
+            cartProductController.setDataofCartItem(item.getName(), item.getPrice(), item.getRating(), item.getImage(), item.getStock());
 
             TextField quantityField = (TextField) bar.lookup("#quantityField");
             Label priceLabel = (Label) bar.lookup("#productPrice1");
@@ -225,7 +227,8 @@ Customer extends User {
                             product.getName(),
                             product.getPrice(),
                             product.getRating(),
-                            product.getImage()
+                            product.getImage(),
+                            product.getStock()
                     );
 
                     TextField quantityField = (TextField) itemRoot.lookup("#quantityField");
@@ -267,7 +270,7 @@ Customer extends User {
                             quantityField.setText(String.valueOf(product.getQuantity()));
                             priceLabel.setText(String.format("₱%.2f", product.getQuantity() * product.getPrice()));
                             Customer.getInstance().setTotalPrice("10000");
-                            System.out.println("Gana:"+Customer.getInstance().getTotalPrice());
+                            System.out.println("Gana:" + Customer.getInstance().getTotalPrice());
                             updateProductQuantityInCart(product);
                             Customer.getInstance().updateTotalPrice();
                         });
@@ -293,7 +296,6 @@ Customer extends User {
             cartStage.show();
 
 
-
             Platform.runLater(() -> instance.updateTotalPrice());
         } catch (IOException e) {
             e.printStackTrace();
@@ -317,9 +319,6 @@ Customer extends User {
         // Log the updated total price for debugging
         System.out.println("Computed total price: ₱" + total);
     }
-
-
-
 
 
     static void updateProductQuantityInCart(CartItems item) {
@@ -359,32 +358,32 @@ Customer extends User {
         Customer.getInstance().updateTotalPrice();
     }
 
-        public void registerCustomer(String name, String email, String password,String address, String contact_number ) {
-            String sql = "INSERT INTO customers (username, email, password,address,contact_number) VALUES (?, ?, ?, ?, ?)";
+    public void registerCustomer(String name, String email, String password, String address, String contact_number) {
+        String sql = "INSERT INTO customers (username, email, password,address,contact_number) VALUES (?, ?, ?, ?, ?)";
 
-            try (Connection conn = DatabaseConnection.getConnection();
-                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-                pstmt.setString(1, name);
-                pstmt.setString(2, email);
-                pstmt.setString(3, password);
-                pstmt.setString(4, address );
-                pstmt.setString(5, contact_number);
-                int rowsAffected = pstmt.executeUpdate();
+            pstmt.setString(1, name);
+            pstmt.setString(2, email);
+            pstmt.setString(3, password);
+            pstmt.setString(4, address);
+            pstmt.setString(5, contact_number);
+            int rowsAffected = pstmt.executeUpdate();
 
-                if (rowsAffected > 0) {
-                    System.out.println("Customer registered successfully!");
-                } else {
-                    System.out.println("Registration failed.");
-                }
-
-            } catch (SQLException e) {
-                System.err.println("SQL error: " + e.getMessage());
-            } catch (Exception e) {
-                System.err.println("Error: " + e.getMessage());
+            if (rowsAffected > 0) {
+                System.out.println("Customer registered successfully!");
+            } else {
+                System.out.println("Registration failed.");
             }
 
+        } catch (SQLException e) {
+            System.err.println("SQL error: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
         }
+
+    }
 
 
     public boolean userExists(String email) {
@@ -422,7 +421,7 @@ Customer extends User {
         signUpController.goToLoginPage();
         closeSignupWindow();
         // Implement this method to close the signup window
-         // Implement this method to open the login window
+        // Implement this method to open the login window
     }
 
     // Method to clear fields in the signup window (to be implemented)
@@ -451,15 +450,15 @@ Customer extends User {
         // loginWindow.show();
     }
 
-    private void gotoCart(){
-        FXMLLoader  loader = new FXMLLoader(getClass().getResource(""));
+    private void gotoCart() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(""));
     }
 
     @FXML
     private Button CheckoutBtn;
 
     @FXML
-    private void handleCheckoutBtn(ActionEvent event) {
+    private void handleCheckoutBtn(ActionEvent event) throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cs262/payment.fxml"));
             Parent root = loader.load();
@@ -472,11 +471,38 @@ Customer extends User {
             Stage cartStage = (Stage) CheckoutBtn.getScene().getWindow();
             cartStage.close();
             stage.show();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        decrementProductStock(3);
     }
 
+    public boolean decrementProductStock(int productId) {
+        String sql = "UPDATE products SET stock = stock - 1 WHERE id = ? AND stock > 0";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Set the product ID to the PreparedStatement
+            stmt.setInt(1, productId);
+
+            // Execute the update statement
+            int rowsAffected = stmt.executeUpdate();
+
+            // Check if the stock was successfully updated
+            if (rowsAffected > 0) {
+                return true; // Stock was updated
+            } else {
+                return false; // Product is out of stock or invalid product ID
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error updating stock: " + e.getMessage());
+            return false; // Return false if an error occurred
+        }
+    }
 
 }

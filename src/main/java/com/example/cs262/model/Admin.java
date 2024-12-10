@@ -105,12 +105,13 @@ public class Admin extends User {
                     String rating = rs.getString("rating");
                     String imageURL = rs.getString("imageURL");
                     String extraField = rs.getString("extraField");
+                    int stock = rs.getInt("stock");
 
                     FXMLLoader loader = new FXMLLoader(Admin.class.getResource("/com/example/cs262/Cart.fxml"));
                     AnchorPane item = loader.load();
 
                     Product controller = loader.getController();
-                    controller.setData(name, price, rating, imageURL);
+                    controller.setData(name, price, rating, imageURL, stock);
 
                     Button addToCartButton = (Button) item.lookup("#addButton");
                     addToCartButton.setOnAction(event -> {
@@ -355,7 +356,7 @@ public class Admin extends User {
 
                 // Add the item to the VBox
 
-              //  AdminProductLoad.getChildren().add(itemRoot);
+                //  AdminProductLoad.getChildren().add(itemRoot);
 
             } catch (IOException e) {
                 System.err.println("Error loading PaymentBar.fxml: " + e.getMessage());

@@ -4,6 +4,7 @@ public class CartItems {
 
     private int id;
     private int quantity; // Instance variable for quantity
+    private int stock; // Instance variable for quantity
     private double price;
     private String name;
     private String rating;
@@ -12,7 +13,7 @@ public class CartItems {
 
 
     // Constructor
-    public CartItems(String name, double price, String rating, String image) {
+    public CartItems( String name, double price, String rating, String image) {
         this.name = name;
         this.price = price;
         this.rating = rating;
@@ -53,6 +54,14 @@ public class CartItems {
     }
 
     public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(double price) {
         this.price = price;
     }
 
