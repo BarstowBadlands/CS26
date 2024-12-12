@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="productContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleproductContainerClick" prefHeight="165.0" prefWidth="114.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cs262.model.Product">
+   <children>
+      <Label fx:id="productName" layoutX="10.0" layoutY="94.0" prefHeight="18.0" prefWidth="65.0" text="Banana">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="productRating" layoutX="18.0" layoutY="115.0" text="4.8 (2000)">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="stock" layoutX="18.0" layoutY="125.0" text="4.8 (2000)">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="productPrice" layoutX="9.0" layoutY="133.0" text="\$5.00">
+         <font>
+            <Font name="Arial Black" size="18.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" layoutX="5.0" layoutY="3.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: LightGray; -fx-stroke-width: 0; -fx-arc-width: 20; -fx-arc-height: 30;" width="104.0" />
+      <ImageView fx:id="productImage" fitHeight="84.0" fitWidth="110.0" layoutX="8.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>
