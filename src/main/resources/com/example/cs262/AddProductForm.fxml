@@ -66,7 +66,7 @@
             </VBox>
          </center>
          <bottom>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="88.0" style="-fx-background-color: #ff0000; -fx-background-radius: 10;" text="Cancel" textFill="WHITE" BorderPane.alignment="CENTER" />
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="88.0" onAction="#handleCancelButton" style="-fx-background-color: #ff0000; -fx-background-radius: 10;" text="Cancel" textFill="WHITE" BorderPane.alignment="CENTER" />
          </bottom>
       </BorderPane>
    </content>

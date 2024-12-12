@@ -23,6 +23,8 @@
             <Font size="10.0" />
          </font>
       </Label>
+
+      <Button fx:id="restockButton" layoutX="18.0" layoutY="150.0" text="Restock" onAction="#handleRestock" />
       <Label fx:id="productPrice" layoutX="9.0" layoutY="133.0" text="\$5.00">
          <font>
             <Font name="Arial Black" size="18.0" />

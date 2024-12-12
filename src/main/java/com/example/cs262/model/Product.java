@@ -6,9 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -17,6 +15,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import static com.example.cs262.model.Customer.cartItems;
 
@@ -303,5 +304,77 @@ public class Product {
 
     public void setCategory(String category) {
         Category = category;
+    }
+
+    @FXML
+    private void handleRestock() {
+        // Create a TextInputDialog to ask for the restock amount
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Restock Product");
+        dialog.setHeaderText("Enter the restock amount");
+        dialog.setContentText("Restock quantity:");
+
+        // Show the dialog and get the result
+        dialog.showAndWait().ifPresent(restockQuantity -> {
+            try {
+                // Validate the input is a number
+                int quantity = Integer.parseInt(restockQuantity);
+                if (quantity > 0) {
+                    // Call the method to update the stock in the database
+                    updateStockInDatabase(quantity, getName());
+                } else {
+                    // Show an error if the quantity is invalid
+                    showError("Please enter a valid positive number.");
+                }
+            } catch (NumberFormatException e) {
+                // Handle invalid input
+                showError("Invalid input. Please enter a valid number.");
+            }
+        });
+    }
+
+    private void updateStockInDatabase(int quantity, String productName) {
+        // SQL query to update the stock based on the product name
+        String sql = "UPDATE products SET stock = stock + ? WHERE name = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Set the restock quantity and the product name in the query
+            stmt.setInt(1, quantity);
+            stmt.setString(2, productName);  // Use the product name instead of the product ID
+
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                // Successfully updated the stock, so update the UI
+                updateStockLabel(quantity);
+            } else {
+                showError("Failed to update stock. Product not found.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showError("Error updating stock: " + e.getMessage());
+        }
+    }
+
+    private void updateStockLabel(int quantity) {
+        // Assuming 'stock' is the label displaying the stock value
+        String currentText = stock.getText();
+        // Extract the current stock from the text (you can adjust this part based on your actual label format)
+        int currentStock = Integer.parseInt(currentText.split("\\(")[1].split("\\)")[0]);
+
+        // Calculate the new stock value
+        int newStock = currentStock + quantity;
+
+        // Update the label text with the new stock
+        stock.setText("4.8 (" + newStock + ")");
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

@@ -440,5 +440,6 @@ public class Admin extends User {
 
 
     public void handleCancelButton(ActionEvent actionEvent) {
+        loadView("/com/example/cs262/Admin.fxml");
     }
 }
