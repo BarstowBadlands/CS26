@@ -222,35 +222,80 @@ public class Admin extends User {
 //                        }
 //                    });
 
-//                    // Add item to the appropriate section based on its category
-//                    switch (category) {
-//                        case "Fruit":
-//                            Controller.getInstance().getHFruits().getChildren().add(item);
-//                            break;
-//                        case "Vegetable":
-//                            Controller.getInstance().getVegeBox().getChildren().add(item);
-//                            break;
-//                        case "Beverages":
-//                            Controller.getInstance().getBeveragesBox().getChildren().add(item);
-//                            break;
-//                        case "MilkAndEggs":
-//                            Controller.getInstance().getDairyBox().getChildren().add(item);
-//                            break;
-//                        case "Laundry":
-//                            Controller.getInstance().getLaundryBox().getChildren().add(item);
-//                            break;
-//                        default:
-//                            System.err.println("Unknown category: " + category);
-//                            break;
-//                    }
+                    // Add item to the appropriate section based on its category
+                    switch (category) {
+                        case "Fruit":
+                            Admin.getInstance().getHFruits().getChildren().add(item);
+                            break;
+                        case "Vegetable":
+                            Admin.getInstance().getVegeBox().getChildren().add(item);
+                            break;
+                        case "Beverages":
+                            Admin.getInstance().getBeveragesBox().getChildren().add(item);
+                            break;
+                        case "MilkAndEggs":
+                            Admin.getInstance().getDairyBox().getChildren().add(item);
+                            break;
+                        case "Laundry":
+                            Admin.getInstance().getLaundryBox().getChildren().add(item);
+                            break;
+                        default:
+                            System.err.println("Unknown category: " + category);
+                            break;
+                    }
 
-                    Admin.getInstance().getAdminProductLoad().getChildren().add(item);
+//                    Admin.getInstance().getAdminProductLoad().getChildren().add(item);
                 }
             }
         } catch (SQLException | IOException e) {
             System.err.println("Error fetching products from database: " + e.getMessage());
         }
     }
+
+    @FXML
+    private HBox VegeBox;
+
+    /**
+     * Provides access to the VegeBox HBox.
+     *
+     * @return the VegeBox HBox
+     */
+    public HBox getVegeBox() {
+        return VegeBox;
+    }
+
+    @FXML
+    private HBox HFruits;
+
+    public HBox getHFruits() {
+        return this.HFruits;
+    }
+
+    @FXML
+    private HBox BeveragesBox;
+    public HBox getBeveragesBox() {
+        return BeveragesBox;
+    }
+
+
+    @FXML
+    private HBox DairyBox;
+    public HBox getDairyBox() {
+        return DairyBox;
+    }
+
+
+    @FXML
+    private Button HomeButton;
+
+
+
+    @FXML
+    private HBox LaundryBox;
+    public HBox getLaundryBox() {
+        return LaundryBox;
+    }
+
 
     // Helper method to create a product object based on category
     private static Product createProduct(String category, String name, double price, String rating, String imageURL, String extraField) {
