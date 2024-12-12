@@ -130,8 +130,8 @@ public class BLoginPageController {
 
     @FXML
     private void closeApplication() {
-        Platform.exit(); // Closes the application
-        System.exit(0);  // Ensures the application is terminated
+        Platform.exit();
+        System.exit(0);
     }
 
 }

@@ -8,11 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -31,12 +31,16 @@ import static com.example.cs262.model.Customer.cartItems;
 
 public class Admin extends User {
 
+    private static Admin instance;
+
     public Admin(String userName, String password, String address, String email, String contactnumber) {
         super(userName, password, address, email, contactnumber);
     }
+
     public Admin() {
         // Initialization code if needed
     }
+
     // Method to add a product to the database
     public static void addProduct(String category, String name, double price, String rating, String imageURL, String extraField) {
         try {
@@ -91,96 +95,10 @@ public class Admin extends User {
         }
     }
 
-    // Method to display all products from the database in their respective sections
-    public static void displayAllProducts() {
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            String sql = "SELECT * FROM products";
-            assert conn != null;
-            try (PreparedStatement stmt = conn.prepareStatement(sql);
-                 ResultSet rs = stmt.executeQuery()) {
-
-                while (rs.next()) {
-                    String category = rs.getString("category");
-                    String name = rs.getString("name");
-                    double price = rs.getDouble("price");
-                    String rating = rs.getString("rating");
-                    String imageURL = rs.getString("imageURL");
-                    String extraField = rs.getString("extraField");
-                    int stock = rs.getInt("stock");
-
-                    FXMLLoader loader = new FXMLLoader(Admin.class.getResource("/com/example/cs262/Cart.fxml"));
-                    AnchorPane item = loader.load();
-
-                    Product controller = loader.getController();
-                    controller.setData(name, price, rating, imageURL, stock);
-
-                    Button addToCartButton = (Button) item.lookup("#addButton");
-                    addToCartButton.setOnAction(event -> {
-                        Product product = createProduct(category, name, price, rating, imageURL, extraField);
-                        if (!cartItems.contains(product)) {
-                            addProductToCart(product);
-                        }
-                    });
-
-                    // Add item to the appropriate section based on its category
-                    switch (category) {
-                        case "Fruit":
-                            Controller.getInstance().getHFruits().getChildren().add(item);
-                            break;
-                        case "Vegetable":
-                            Controller.getInstance().getVegeBox().getChildren().add(item);
-                            break;
-                        case "Beverages":
-                            Controller.getInstance().getBeveragesBox().getChildren().add(item);
-                            break;
-                        case "MilkAndEggs":
-                            Controller.getInstance().getDairyBox().getChildren().add(item);
-                            break;
-                        case "Laundry":
-                            Controller.getInstance().getLaundryBox().getChildren().add(item);
-                            break;
-                        default:
-                            System.err.println("Unknown category: " + category);
-                            break;
-                    }
-                }
-            }
-        } catch (SQLException | IOException e) {
-            System.err.println("Error fetching products from database: " + e.getMessage());
-        }
+    public static Admin getInstance() {
+        return instance;
     }
 
-    // Helper method to create a product object based on category
-    private static Product createProduct(String category, String name, double price, String rating, String imageURL, String extraField) {
-        switch (category) {
-            case "Fruit":
-                Fruit fruit = new Fruit(name, price, rating, imageURL, extraField);
-                fruit.setSeason(extraField);
-                return fruit;
-            case "Vegetable":
-                Vegetable vegetable = new Vegetable(name, price, rating, imageURL, extraField);
-                vegetable.setIsOrganic(extraField);
-                return vegetable;
-            case "Beverages":
-                Beverages beverages = new Beverages(name, price, rating, imageURL, extraField);
-                beverages.setSize(extraField);
-                return beverages;
-            case "MilkAndEggs":
-                MilkAndEggs milkAndEggs = new MilkAndEggs(name, price, rating, imageURL, extraField);
-                milkAndEggs.setExpirationDate(extraField);
-                return milkAndEggs;
-            case "Laundry":
-                Laundry laundry = new Laundry(name, price, rating, imageURL, extraField);
-                laundry.setBrand(extraField);
-                return laundry;
-            default:
-                System.err.println("Unknown category: " + category);
-                return null;
-        }
-
-
-
-    }
     @FXML
     private Button Inventory;
 
@@ -188,6 +106,7 @@ public class Admin extends User {
     private void handleInventory(ActionEvent event) {
         loadView("/com/example/cs262/Inventory.fxml");
     }
+
     @FXML
     private BorderPane LoaderPane;
 
@@ -201,6 +120,7 @@ public class Admin extends User {
             e.printStackTrace();
         }
     }
+
     @FXML
     private Button selectImageButton; // Button to trigger the file chooser
 
@@ -255,7 +175,7 @@ public class Admin extends User {
             return; // Exit if comboBox is null
         }
 
-        ObservableList<String> items = FXCollections.observableArrayList("Fruit", "Vegetable", "Beverages","MilkAndEggs", "Laundry");
+        ObservableList<String> items = FXCollections.observableArrayList("Fruit", "Vegetable", "Beverages", "MilkAndEggs", "Laundry");
         comboBox.setItems(items);
         comboBox.setOnAction(event -> {
             String selectedItem = comboBox.getSelectionModel().getSelectedItem();
@@ -264,9 +184,10 @@ public class Admin extends User {
     }
 
     @FXML
-    private  void initialize() {
+    private void initialize() {
         setupComboBox();
     }
+
     @FXML
     private Button AddProductButton;
 
@@ -274,6 +195,7 @@ public class Admin extends User {
     private void handleAddProduct() {
         loadView("/com/example/cs262/AddProductForm.fxml");
     }
+
     @FXML
     private TextField ProductNameExtraField;
 
@@ -290,18 +212,19 @@ public class Admin extends User {
     private Button Addtodatabasebutton;
 
     @FXML
-    private void handleAddtodatabasebutton(){
+    private void handleAddtodatabasebutton() {
 
         String Category = comboBox.getSelectionModel().getSelectedItem();
         String Name = ProductNameField.getText();
         double Price = Double.parseDouble(ProductNamePrice.getText());
-        String Rating =ProductNameRating.getText();
+        String Rating = ProductNameRating.getText();
         String ImageURL = imageTextField.getText();
         String ExtraField = ProductNameExtraField.getText();
 
-        addProduct(Category,Name,Price,Rating,ImageURL,ExtraField);
+        addProduct(Category, Name, Price, Rating, ImageURL, ExtraField);
 
     }
+
 
     public List<Product> retrieveProductsFromDatabase() {
         List<Product> products = new ArrayList<>();
@@ -339,7 +262,7 @@ public class Admin extends User {
     @FXML
     private VBox AdminProductLoad;
 
-    public void loadproducts(){
+    public void loadproducts() {
 
         for (Product product : products) {
             try {
@@ -366,4 +289,6 @@ public class Admin extends User {
     }
 
 
+    public void handleCancelButton(ActionEvent actionEvent) {
+    }
 }

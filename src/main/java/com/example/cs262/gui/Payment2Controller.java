@@ -171,6 +171,7 @@ public class Payment2Controller {
             // Ensure displayCartItems() is executed after the FXML components are initialized
             Platform.runLater(() -> {
                 controller.setReceiptdata(cartItems,TotalText.getText(),PaymentText.getText(),DeliveryText.getText());
+                cartItems.clear();
 
             });
 
@@ -198,10 +199,9 @@ public class Payment2Controller {
         Controller.getInstance().getBeveragesBox().getChildren().clear();
         Controller.getInstance().getDairyBox().getChildren().clear();
         Controller.getInstance().getLaundryBox().getChildren().clear();
-        cartItems.clear();
 
         // Reload products from the database
-        Admin.displayAllProducts();
+        Controller.displayAllProducts();
     }
 
 
