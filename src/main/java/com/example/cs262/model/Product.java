@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static com.example.cs262.model.Customer.cartItems;
@@ -24,6 +25,7 @@ import static com.example.cs262.model.Customer.cartItems;
 
 public class Product {
     private static Product instance;
+    public Button restockButton;
 
     // Singleton Pattern
     public Product() {
@@ -308,6 +310,9 @@ public class Product {
 
     @FXML
     private void handleRestock() {
+        // Get the product name dynamically (e.g., from a label or text field)
+        String productName = this.productName.getText();  // Or adjust this based on your UI
+
         // Create a TextInputDialog to ask for the restock amount
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Restock Product");
@@ -321,7 +326,13 @@ public class Product {
                 int quantity = Integer.parseInt(restockQuantity);
                 if (quantity > 0) {
                     // Call the method to update the stock in the database
-                    updateStockInDatabase(quantity);
+                    int newStock = updateStockInDatabase(quantity, productName);
+
+                    // If the update was successful, update the stock label in the UI
+                    if (newStock != -1) {
+                        // Update the label with the new stock value
+                        stock.setText("In Stock: " + String.valueOf(newStock));
+                    }
                 } else {
                     // Show an error if the quantity is invalid
                     showError("Please enter a valid positive number.");
@@ -333,41 +344,46 @@ public class Product {
         });
     }
 
-    private void updateStockInDatabase(int quantity) {
-        // SQL query to update the stock based on the product name
-        String sql = "UPDATE products SET stock = stock + ? WHERE name = ?";
+
+    private int updateStockInDatabase(int quantity, String productName) {
+        // SQL query to get the current stock of the product
+        String sqlSelect = "SELECT stock FROM products WHERE name = ?";
+        int currentStock = 0;
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmtSelect = conn.prepareStatement(sqlSelect)) {
 
-            // Set the restock quantity and the product name in the query
-            stmt.setInt(1, quantity);
-            stmt.setString(2, "Apple");  // Use the product name instead of the product ID
-
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected > 0) {
-                // Successfully updated the stock, so update the UI
-                refreshProductList();
-            } else {
-                showError("Failed to update stock. Product not found.");
+            stmtSelect.setString(1, productName);
+            try (ResultSet rs = stmtSelect.executeQuery()) {
+                if (rs.next()) {
+                    currentStock = rs.getInt("stock");
+                }
             }
+
+            // SQL query to update the stock
+            String sqlUpdate = "UPDATE products SET stock = stock + ? WHERE name = ?";
+            try (PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
+                stmtUpdate.setInt(1, quantity);
+                stmtUpdate.setString(2, productName);
+
+                int rowsAffected = stmtUpdate.executeUpdate();
+                if (rowsAffected > 0) {
+                    // Return the new stock value (current + quantity)
+                    return currentStock + quantity;  // New stock after restock
+                } else {
+                    showError("Failed to update stock. Product not found.");
+                }
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
             showError("Error updating stock: " + e.getMessage());
         }
+        return -1;  // Indicate failure to update
     }
 
-    public void refreshProductList() {
-        // Clear existing UI components
-        Admin.getInstance().getHFruits().getChildren().clear();
-        Admin.getInstance().getVegeBox().getChildren().clear();
-        Admin.getInstance().getBeveragesBox().getChildren().clear();
-        Admin.getInstance().getDairyBox().getChildren().clear();
-        Admin.getInstance().getLaundryBox().getChildren().clear();
 
-        // Reload products from the database
-        Admin.displayAllProducts();
-    }
+
 
 
     private void showError(String message) {
