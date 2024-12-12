@@ -7,16 +7,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -334,7 +334,22 @@ public class Admin extends User {
 
     @FXML
     private void handleAddProduct() {
-        loadView("/com/example/cs262/AddProductForm.fxml");
+        try {
+            // Load the AddProductForm.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cs262/AddProductForm.fxml"));
+            Parent root = loader.load();
+
+            // Create a new Stage (window) for the pop-up form
+            Stage stage = new Stage();
+            stage.setTitle("Add Product");
+            stage.setScene(new Scene(root));
+
+            // Show the pop-up window
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Failed to open Add Product form.");
+        }
     }
 
     @FXML
@@ -411,6 +426,13 @@ public class Admin extends User {
         return AdminProductLoad;
     }
 
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
     public void loadproducts() {
 
@@ -439,7 +461,16 @@ public class Admin extends User {
     }
 
 
+    @FXML
     public void handleCancelButton(ActionEvent actionEvent) {
-        loadView("/com/example/cs262/Admin.fxml");
+        // Get the current stage (window) that the button belongs to
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+        // Close the current stage (this is the pop-up window)
+        stage.close();
+
+        // If you want to bring the main window back into focus:
+        Stage mainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        mainStage.requestFocus();
     }
 }
