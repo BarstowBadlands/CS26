@@ -321,7 +321,7 @@ public class Product {
                 int quantity = Integer.parseInt(restockQuantity);
                 if (quantity > 0) {
                     // Call the method to update the stock in the database
-                    updateStockInDatabase(quantity, getName());
+                    updateStockInDatabase(quantity);
                 } else {
                     // Show an error if the quantity is invalid
                     showError("Please enter a valid positive number.");
@@ -333,7 +333,7 @@ public class Product {
         });
     }
 
-    private void updateStockInDatabase(int quantity, String productName) {
+    private void updateStockInDatabase(int quantity) {
         // SQL query to update the stock based on the product name
         String sql = "UPDATE products SET stock = stock + ? WHERE name = ?";
 
@@ -342,12 +342,12 @@ public class Product {
 
             // Set the restock quantity and the product name in the query
             stmt.setInt(1, quantity);
-            stmt.setString(2, productName);  // Use the product name instead of the product ID
+            stmt.setString(2, "Apple");  // Use the product name instead of the product ID
 
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 // Successfully updated the stock, so update the UI
-                updateStockLabel(quantity);
+                refreshProductList();
             } else {
                 showError("Failed to update stock. Product not found.");
             }
@@ -357,18 +357,18 @@ public class Product {
         }
     }
 
-    private void updateStockLabel(int quantity) {
-        // Assuming 'stock' is the label displaying the stock value
-        String currentText = stock.getText();
-        // Extract the current stock from the text (you can adjust this part based on your actual label format)
-        int currentStock = Integer.parseInt(currentText.split("\\(")[1].split("\\)")[0]);
+    public void refreshProductList() {
+        // Clear existing UI components
+        Admin.getInstance().getHFruits().getChildren().clear();
+        Admin.getInstance().getVegeBox().getChildren().clear();
+        Admin.getInstance().getBeveragesBox().getChildren().clear();
+        Admin.getInstance().getDairyBox().getChildren().clear();
+        Admin.getInstance().getLaundryBox().getChildren().clear();
 
-        // Calculate the new stock value
-        int newStock = currentStock + quantity;
-
-        // Update the label text with the new stock
-        stock.setText("4.8 (" + newStock + ")");
+        // Reload products from the database
+        Admin.displayAllProducts();
     }
+
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
