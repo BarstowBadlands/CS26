@@ -84,19 +84,6 @@
    <center>
       <ScrollPane hbarPolicy="NEVER" prefHeight="376.0" prefWidth="299.0" style="-fx-background-color: WHite;" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
          <content>
-<!--            <VBox fx:id="AdminProductLoad" prefHeight="473.0" prefWidth="298.0">-->
-<!--               <children>-->
-<!--                  <AnchorPane prefHeight="33.0" prefWidth="298.0">-->
-<!--                     <children>-->
-<!--                        <Button fx:id="AddProductButton" layoutX="266.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleAddProduct" prefHeight="26.0" prefWidth="22.0">-->
-<!--                           <graphic>-->
-<!--                              <FontAwesomeIcon glyphName="PLUS" />-->
-<!--                           </graphic>-->
-<!--                        </Button>-->
-<!--                     </children>-->
-<!--                  </AnchorPane>-->
-<!--               </children>-->
-<!--            </VBox>-->
             <VBox prefHeight="1350.0" prefWidth="299.0" style="-fx-background-color: WHITE;">
                <children>
                   <AnchorPane prefHeight="33.0" prefWidth="298.0">

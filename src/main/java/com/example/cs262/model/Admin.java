@@ -214,30 +214,32 @@ public class Admin extends User {
                     Product controller = loader.getController();
                     controller.setData(name, price, rating, imageURL, stock);
 
-//                    Button addToCartButton = (Button) item.lookup("#addButton");
-//                    addToCartButton.setOnAction(event -> {
-//                        Product product = createProduct(category, name, price, rating, imageURL, extraField);
-//                        if (!cartItems.contains(product)) {
-//                            addProductToCart(product);
-//                        }
-//                    });
-
                     // Add item to the appropriate section based on its category
                     switch (category) {
                         case "Fruit":
-                            Admin.getInstance().getHFruits().getChildren().add(item);
+                            if (Admin.getInstance().getHFruits() != null) {
+                                Admin.getInstance().getHFruits().getChildren().add(item);
+                            }
                             break;
                         case "Vegetable":
-                            Admin.getInstance().getVegeBox().getChildren().add(item);
+                            if (Admin.getInstance().getVegeBox() != null) {
+                                Admin.getInstance().getVegeBox().getChildren().add(item);
+                            }
                             break;
                         case "Beverages":
-                            Admin.getInstance().getBeveragesBox().getChildren().add(item);
+                            if (Admin.getInstance().getBeveragesBox() != null) {
+                                Admin.getInstance().getBeveragesBox().getChildren().add(item);
+                            }
                             break;
                         case "MilkAndEggs":
-                            Admin.getInstance().getDairyBox().getChildren().add(item);
+                            if (Admin.getInstance().getDairyBox() != null) {
+                                Admin.getInstance().getDairyBox().getChildren().add(item);
+                            }
                             break;
                         case "Laundry":
-                            Admin.getInstance().getLaundryBox().getChildren().add(item);
+                            if (Admin.getInstance().getLaundryBox() != null) {
+                                Admin.getInstance().getLaundryBox().getChildren().add(item);
+                            }
                             break;
                         default:
                             System.err.println("Unknown category: " + category);
